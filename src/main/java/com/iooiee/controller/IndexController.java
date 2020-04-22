@@ -29,8 +29,6 @@ public class IndexController {
         model.addAllAttributes(dashboardMap);
         return "index";
     }
-    static final String clientKey = "ux7O3NDOewsyM4gbhPHr";
-
 
     @RequestMapping("/page1")
     public String page1() throws IOException {
