@@ -14,16 +14,17 @@ spring:
     static-path-pattern: /static/**
     servlet:
       load-on-startup: 0
-  #    freemarker≈‰÷√
+  #    freemarker
   freemarker:
     templateLoaderPath: classpath:/templates/
     suffix: .ftl
     charset: UTF-8
     request-context-attribute: request
     spring.freemarker.settings.number_format: 0.##########
-
 logging:
   level:
     root: info
   file:
     name: ./logs/system.log
+mybatis:
+  mapper-locations: classpath:/mapper/*Mapper.xml

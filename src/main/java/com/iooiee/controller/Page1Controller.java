@@ -24,7 +24,7 @@ public class Page1Controller {
 
     @RequestMapping("getDatas")
     @ResponseBody
-    public R getDatas(){
+    public List<SvcMonitor> getDatas(){
         List<SvcMonitor>  svcMonitorList= new ArrayList<>();
             Random random = new Random();
             for(int i = 1; i<=10; i++){
@@ -38,6 +38,27 @@ public class Page1Controller {
             svcMonitor.setIafStatus(rndNum-1+"");
             svcMonitorList.add(svcMonitor);
         }
-        return R.ok().data("svcMonitor",svcMonitorList).message("查询服务数据");
+        return svcMonitorList;
     }
+
+
+    @RequestMapping("getSvcDatas")
+    @ResponseBody
+    public R getSvcDatas(){
+        List<SvcMonitor>  svcMonitorList= new ArrayList<>();
+        Random random = new Random();
+            for(int i = 1; i<=10; i++){
+                SvcMonitor svcMonitor = new SvcMonitor();
+                int rndNum = random.nextInt(1000);
+                svcMonitor.setId(rndNum+"");
+                svcMonitor.setIp("192.68.1."+rndNum);
+                svcMonitor.setPort(rndNum+1000+"");
+                svcMonitor.setIsLined("正常");
+                svcMonitor.setOnline("在线");
+            svcMonitor.setIafStatus(rndNum-1+"");
+            svcMonitorList.add(svcMonitor);
+        }
+        return R.ok().data("SvcStates",svcMonitorList).message("查询服务数据");
+    }
+
 }

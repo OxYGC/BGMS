@@ -67,6 +67,7 @@ public class R {
         return this;
     }
 
+
     // 自定义状态信息
     public R message(String message) {
         this.setMessage(message);

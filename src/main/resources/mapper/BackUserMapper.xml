@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iooiee.dao.BackUserDao">
+
+    <resultMap id="BaseResultMap" type="com.iooiee.model.BackUser" >
+        <result column="id" property="id" />
+        <result column="username" property="username" />
+        <result column="password" property="password" />
+        <result column="role" property="role" />
+        <result column="permission" property="permission" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+		t.id,
+		t.username,
+		t.password,
+		t.role,
+		t.permission
+	</sql>
+
+
+    <select id="loadByUserName" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM b_user AS t
+        WHERE t.username = #{username}
+    </select>
+
+    <insert id="save" parameterType="com.iooiee.model.BackUser" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO b_user (
+			username,
+			password,
+			role,
+			permission
+		) VALUES (
+			#{username},
+			#{password},
+			#{role},
+			#{permission}
+		);
+	</insert>
+
+    <update id="update" parameterType="com.iooiee.model.BackUser" >
+        UPDATE b_user
+        SET
+        <if test="password != null and password != ''">
+            password = #{password},
+        </if>
+        role = #{role},
+        permission = #{permission}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.util.HashMap">
+		DELETE
+		FROM b_user
+		WHERE id = #{id}
+	</delete>
+
+</mapper>
