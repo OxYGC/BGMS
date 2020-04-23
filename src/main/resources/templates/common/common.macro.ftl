@@ -38,7 +38,7 @@
 	<#-- layer -->
 	<script src="${request.contextPath}/static/plugins/layer/layer.js"></script>
 	<#-- common -->
-<#--    <script src="${request.contextPath}/static/js/common.1.js"></script>-->
+    <script src="${request.contextPath}/static/js/common.1.js"></script>
 	<script>
 		var base_url = '${request.contextPath}';
 	</script>
@@ -64,8 +64,7 @@
 					<#-- login user -->
 					<li class="dropdown">
 						<a href="javascript:" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-<#--							欢迎 ${Request["LOGIN_IDENTITY"].username}-->
-							欢迎 你
+							欢迎你  ${Request["BGMS_LOGIN_IDENTITY"].username}
 							<span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu" role="menu">
@@ -78,7 +77,31 @@
 
 		</nav>
 	</header>
-
+	<!-- 修改密码.模态框 -->
+	<div class="modal fade" id="updatePwdModal" tabindex="-1" role="dialog"  aria-hidden="true">
+		<div class="modal-dialog ">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" >修改密码</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal form" role="form" >
+						<div class="form-group">
+							<label for="lastname" class="col-sm-2 control-label">新密码<font color="red">*</font></label>
+							<div class="col-sm-10"><input type="text" class="form-control" name="password" placeholder="请输入新密码" maxlength="100" ></div>
+						</div>
+						<hr>
+						<div class="form-group">
+							<div class="col-sm-offset-3 col-sm-6">
+								<button type="submit" class="btn btn-primary"  >保存</button>
+								<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 </#macro>
 
 <#macro commonLeft pageName >

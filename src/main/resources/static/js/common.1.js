@@ -2,24 +2,24 @@ $(function(){
 
 	// logout
 	$("#logoutBtn").click(function(){
-		layer.confirm( I18n.logout_confirm , {
+		layer.confirm( "确定注销?", {
 			icon: 3,
-			title: I18n.system_tips ,
-            btn: [ I18n.system_ok, I18n.system_cancel ]
+			title: "系统提示!" ,
+            btn: [ "确认", "返回" ]
 		}, function(index){
 			layer.close(index);
 
 			$.post(base_url + "/logout", function(data, status) {
-				if (data.code == "200") {
-                    layer.msg( I18n.logout_success );
+				if (data.code == "20000") {
+                    layer.msg( "注销成功" );
                     setTimeout(function(){
                         window.location.href = base_url + "/";
                     }, 500);
 				} else {
 					layer.open({
-						title: I18n.system_tips ,
-                        btn: [ I18n.system_ok ],
-						content: (data.msg || I18n.logout_fail),
+						title:  "系统提示!" ,
+                        btn: [ "确认" ],
+						content: (data.msg || "注销失败"),
 						icon: '2'
 					});
 				}
@@ -94,6 +94,7 @@ $(function(){
     $('#updatePwd').on('click', function(){
         $('#updatePwdModal').modal({backdrop: false, keyboard: false}).modal('show');
     });
+
     var updatePwdModalValidate = $("#updatePwdModal .form").validate({
         errorElement : 'span',
         errorClass : 'help-block',
@@ -122,18 +123,18 @@ $(function(){
         },
         submitHandler : function(form) {
             $.post(base_url + "/user/updatePwd",  $("#updatePwdModal .form").serialize(), function(data, status) {
-                if (data.code == 200) {
+                if (data.code == 20000) {
                     $('#updatePwdModal').modal('hide');
 
-                    layer.msg( I18n.change_pwd_suc_to_logout );
+                    layer.msg( "修改密码成功" );
                     setTimeout(function(){
                         $.post(base_url + "/logout", function(data, status) {
-                            if (data.code == 200) {
+                            if (data.code == 20000) {
                                 window.location.href = base_url + "/";
                             } else {
                                 layer.open({
                                     icon: '2',
-                                    content: (data.msg|| I18n.logout_fail)
+                                    content: (data.message|| "修改密码失败")
                                 });
                             }
                         });

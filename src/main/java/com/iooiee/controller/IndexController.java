@@ -56,6 +56,12 @@ public class IndexController {
         return loginService.login(request, response, userName, password, ifRem);
     }
 
+    @RequestMapping(value="logout", method=RequestMethod.POST)
+    @ResponseBody
+    @PermissionLimit(limit=false)
+    public R logout(HttpServletRequest request, HttpServletResponse response){
+        return loginService.logout(request, response);
+    }
 
     @RequestMapping("/page1")
     public String page1() throws IOException {
