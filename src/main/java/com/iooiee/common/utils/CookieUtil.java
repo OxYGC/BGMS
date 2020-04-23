@@ -12,8 +12,9 @@ import javax.servlet.http.HttpServletResponse;
  * Time: 18:36
  */
 public class CookieUtil {
-    // 默认缓存时间,单位/秒, 2H
-    private static final int COOKIE_MAX_AGE = Integer.MAX_VALUE;
+    // 默认缓存时间,单位/秒, 2H,勾选记住我为两个周
+    private static final int COOKIE_DEFAULT_AGE = 60*60*2;
+    private static final int COOKIE_REMEMBER_AGE = 60*60*24*14;
     // 保存路径,根路径
     private static final String COOKIE_PATH = "/";
     /**
@@ -24,9 +25,9 @@ public class CookieUtil {
      * @param value
      * @param ifRemember
      */
-    public static void set(HttpServletResponse response, String key, String value, boolean ifRemember) {
-        int age = ifRemember?COOKIE_MAX_AGE:-1;
-        set(response, key, value, null, COOKIE_PATH, age, true);
+    public static void setCookie(HttpServletResponse response, String key, String value, boolean ifRemember) {
+        int age = ifRemember?COOKIE_REMEMBER_AGE:COOKIE_DEFAULT_AGE;
+        saveCookie(response, key, value, null, COOKIE_PATH, age, true);
     }
 
     /**
@@ -37,7 +38,7 @@ public class CookieUtil {
      * @param value
      * @param maxAge
      */
-    private static void set(HttpServletResponse response, String key, String value, String domain, String path, int maxAge, boolean isHttpOnly) {
+    private static void saveCookie(HttpServletResponse response, String key, String value, String domain, String path, int maxAge, boolean isHttpOnly) {
         Cookie cookie = new Cookie(key, value);
         if (domain != null) {
             cookie.setDomain(domain);
@@ -56,7 +57,7 @@ public class CookieUtil {
      * @return
      */
     public static String getValue(HttpServletRequest request, String key) {
-        Cookie cookie = get(request, key);
+        Cookie cookie = matchCookieByName(request, key);
         if (cookie != null) {
             return cookie.getValue();
         }
@@ -64,12 +65,12 @@ public class CookieUtil {
     }
 
     /**
-     * 查询Cookie
+     * 循环查找是否有相同的Cookie-Name
      *
      * @param request
      * @param key
      */
-    private static Cookie get(HttpServletRequest request, String key) {
+    private static Cookie matchCookieByName(HttpServletRequest request, String key) {
         Cookie[] arr_cookie = request.getCookies();
         if (arr_cookie != null && arr_cookie.length > 0) {
             for (Cookie cookie : arr_cookie) {
@@ -88,10 +89,10 @@ public class CookieUtil {
      * @param response
      * @param key
      */
-    public static void remove(HttpServletRequest request, HttpServletResponse response, String key) {
-        Cookie cookie = get(request, key);
+    public static void removeCookie(HttpServletRequest request, HttpServletResponse response, String key) {
+        Cookie cookie = matchCookieByName(request, key);
         if (cookie != null) {
-            set(response, key, "", null, COOKIE_PATH, 0, true);
+            saveCookie(response, key, "", null, COOKIE_PATH, 0, true);
         }
     }
 }

@@ -47,7 +47,7 @@ public class JacksonUtil {
 
     /**
      * string --> bean、Map、List(array)
-     *
+     * 通过ObjectMapper将json串转换成对象
      * @param jsonStr
      * @param clazz
      * @return obj

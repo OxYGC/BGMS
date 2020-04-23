@@ -32,10 +32,6 @@ public class CookieInterceptor extends HandlerInterceptorAdapter {
             modelAndView.addObject("cookieMap", cookieMap);
         }
 
-        // static method
-//        if (modelAndView != null) {
-//            modelAndView.addObject("I18nUtil", FtlUtil.generateStaticModel(I18nUtil.class.getName()));
-//        }
 
         super.postHandle(request, response, handler, modelAndView);
     }

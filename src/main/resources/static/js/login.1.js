@@ -47,7 +47,7 @@ $(function(){
         },
         submitHandler : function(form) {
 			$.post(base_url + "/login", $("#loginForm").serialize(), function(data, status) {
-				if (data.code == "200") {
+				if (data.code == "20000") {
                     layer.msg( "登录成功" );
                     setTimeout(function(){
                         window.location.href = base_url;

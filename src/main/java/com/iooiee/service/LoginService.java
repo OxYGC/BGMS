@@ -26,7 +26,7 @@ public class LoginService {
     public static final String LOGIN_IDENTITY_KEY = "BGMS_LOGIN_IDENTITY";
     @Resource
     BackUserDao backUserDao;
-
+    //Token为登录的对象,转换成json使用大数转换再进行16进制
     private String makeToken(BackUser backUser){
         String tokenJson = JacksonUtil.writeValueAsString(backUser);
         String tokenHex = new BigInteger(tokenJson.getBytes()).toString(16);
@@ -64,7 +64,7 @@ public class LoginService {
         String loginToken = makeToken(backUser);
 
         // 登录后设置Cookie
-        CookieUtil.set(response, LOGIN_IDENTITY_KEY, loginToken, ifRemember);
+        CookieUtil.setCookie(response, LOGIN_IDENTITY_KEY, loginToken, ifRemember);
         return R.ok();
     }
 
@@ -75,25 +75,27 @@ public class LoginService {
      * @param response
      */
     public R logout(HttpServletRequest request, HttpServletResponse response){
-        CookieUtil.remove(request, response, LOGIN_IDENTITY_KEY);
+        CookieUtil.removeCookie(request, response, LOGIN_IDENTITY_KEY);
         return R.ok();
     }
 
     /**
-     * logout
-     * 如果已经登录
+     *
+     * 判断需要登录,如果需要登录就返回为null,已经登录,返回校验后的对象,等待权限校验
      * @param request
      * @return
      */
     public BackUser ifLogin(HttpServletRequest request, HttpServletResponse response){
-        String cookieToken = CookieUtil.getValue(request, LOGIN_IDENTITY_KEY);
-        if (cookieToken != null) {
+            String cookieToken = CookieUtil.getValue(request, LOGIN_IDENTITY_KEY);
+            if (cookieToken != null) {
             BackUser cookieUser = null;
             try {
+                //通过Token转换成json,再转换成bean
                 cookieUser = parseToken(cookieToken);
             } catch (Exception e) {
                 logout(request, response);
             }
+            //用转换成的user对象对比数据库中的对象
             if (cookieUser != null) {
                 BackUser dbUser = backUserDao.loadByUserName(cookieUser.getUsername());
                 if (dbUser != null) {
