@@ -1,10 +1,12 @@
 package com.iooiee.controller;
 
+import ch.qos.logback.classic.Logger;
 import com.iooiee.annotation.PermissionLimit;
 import com.iooiee.common.vo.R;
 import com.iooiee.dao.BackUserDao;
 import com.iooiee.model.BackUser;
 import com.iooiee.service.LoginService;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.DigestUtils;
@@ -14,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -26,15 +27,15 @@ import java.util.List;
 @Controller
 @RequestMapping("/user")
 public class BackUserController {
+
+    Logger logger = (Logger) LoggerFactory.getLogger(BackUserController.class);
+
     @Resource
     private BackUserDao backUserDao;
-
-
 
     @RequestMapping
     @PermissionLimit(adminuser = true)
     public String index(Model model) {
-
         return "user/user.index";
     }
 
@@ -68,7 +69,6 @@ public class BackUserController {
     @RequestMapping("/updatePwd")
     @ResponseBody
     public R updatePwd(HttpServletRequest request, String password){
-
         // valid password
         if (password==null || password.trim().length()==0){
             return R.error().message("密码不可为空");

@@ -34,7 +34,6 @@ public class IndexController {
 
     @RequestMapping("/")
     public String index(Model model) {
-        logger.debug(model.toString());
         Map<String, Object> dashboardMap = indexService.dashboardInfo();
         model.addAllAttributes(dashboardMap);
         return "index";

@@ -22,9 +22,10 @@ spring:
     request-context-attribute: request
     spring.freemarker.settings.number_format: 0.##########
 logging:
+  config: classpath:logback-spring.xml
   level:
-    root: info
-  file:
-    name: ./logs/system.log
+    dao: debug
+    org:
+      mybatis: debug
 mybatis:
   mapper-locations: classpath:/mapper/*Mapper.xml
