@@ -21,11 +21,19 @@ spring:
     charset: UTF-8
     request-context-attribute: request
     spring.freemarker.settings.number_format: 0.##########
+#  mail:
+#    host: smtp.163.com
+#    port: 25
+#    username:
+#    password:
+#    properties:
+#    default-encoding: utf-8
+#    test-connection: true
 logging:
   config: classpath:logback-spring.xml
   level:
-    dao: debug
+    dao: error
     org:
-      mybatis: debug
+      mybatis: error
 mybatis:
   mapper-locations: classpath:/mapper/*Mapper.xml
