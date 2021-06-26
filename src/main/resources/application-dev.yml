@@ -2,6 +2,16 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/official_site?Unicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+#    url: jdbc:mysql://127.0.0.1:3306/official_site?Unicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+#    username: root
+#    password: useradmin
+    url: jdbc:mysql://192.168.3.23:3307/ldd_new
     username: root
-    password: useradmin
+    password: My123456
+#    url: jdbc:mysql://192.168.3.137:31295/ldd_new
+#    username: root
+#    password: root
+#    url: jdbc:mysql://192.168.3.135:30117/ldd_new
+#    username: root
+#    password: root
+
