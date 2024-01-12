@@ -84,6 +84,8 @@
             <artifactId>netty-all</artifactId>
             <version>4.1.48.Final</version>
         </dependency>
+
+
         <!--mybatisPlus-->
         <dependency>
             <groupId>com.baomidou</groupId>
@@ -91,7 +93,12 @@
             <version>3.4.3.1</version>
         </dependency>
 
-
+        <!-- H2 -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
     </dependencies>
 
     <build>
