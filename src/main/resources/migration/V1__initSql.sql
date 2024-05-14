@@ -1,3 +1,15 @@
+CREATE TABLE `b_user` (
+  `id` bigint(20) NOT NULL,
+  `username` varchar(55) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '账号',
+  `password` varchar(55) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '密码',
+  `role` int(11) DEFAULT '0' COMMENT '角色：0-普通用户、1-管理员',
+  `permission` varchar(155) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '权限：多个逗号分割',
+  PRIMARY KEY (`id`) /*T![clustered_index] CLUSTERED */
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT ='用户表';;
+
+-- 添加登陆账号（admin / 123456）
+INSERT INTO `b_user` (`id`, `username`, `password`, `role`, `permission`) VALUES (1, 'admin', 'e10adc3949ba59abbe56e057f20f883e', 1, '');
+
 CREATE TABLE `saas_club`
 (
     `id`                              bigint(24)                       NOT NULL COMMENT 'id',
